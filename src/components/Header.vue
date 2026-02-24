@@ -10,6 +10,7 @@
         <router-link to="/blog">Blog</router-link>
       </div>
       <div class="social-icons">
+        <ThemeToggle />
         <!-- Email Icon -->
         <a href="mailto:bryantaolong@outlook.com" aria-label="Email" class="social-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -34,7 +35,7 @@
 </template>
 
 <script setup>
-// Header component logic can be added here if needed
+import ThemeToggle from './ThemeToggle.vue'
 </script>
 
 <style scoped>
