@@ -5,7 +5,7 @@
         <section class="about-section">
           <h1>About Me</h1>
           <p>
-            I'm Bryant Tao Long, a passionate developer who enjoys creating software solutions
+            I'm Bryan Tao Long, a passionate developer who enjoys creating software solutions
             and sharing knowledge through writing and teaching.
           </p>
           <p>
