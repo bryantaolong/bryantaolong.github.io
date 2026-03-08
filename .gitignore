@@ -1,7 +1,11 @@
 # Custom
 .agents/
 .claude/
-.qoder/
+
+AGENTS.md
+CLAUDE.md
+
+posts/.obsidian/
 
 # Dependencies
 node_modules/
