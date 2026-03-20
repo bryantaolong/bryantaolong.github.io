@@ -25,11 +25,6 @@ npm run preview
 ├── package.json            # Project dependencies and scripts
 ├── vite.config.js          # Vite configuration
 ├── posts/                  # Blog posts (Markdown files)
-│   ├── 《Educated》读后感.md
-│   ├── 《时势》阅读笔记.md
-│   ├── 关于飞书与Obsidian.md
-│   ├── HTTP 的不同连接方式.md
-│   └── Unlocking the Codex harness：how we built the App Server（ChatGPT Blog）.md
 └── src/
     ├── main.js             # Application entry point
     ├── App.vue             # Root component
@@ -65,7 +60,8 @@ npm run preview
    ---
    title: Post Title
    date: 2026-02-24
-   excerpt: Brief description of the post
+   tags: 技术, 思考
+   description: Brief description of the post
    ---
    ```
 3. Write your content in Markdown
