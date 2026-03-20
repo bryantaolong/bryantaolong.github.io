@@ -43,7 +43,31 @@ function stripMarkdownSyntax(text) {
 const posts = ref([])
 
 /**
+ * Parse tags from various formats (comma-separated string or array)
+ * Supports Obsidian-style: tags: tag1, tag2, tag3
+ */
+function parseTags(tagsValue) {
+  if (!tagsValue) return [];
+  
+  // If it's already an array, clean and return
+  if (Array.isArray(tagsValue)) {
+    return tagsValue.map(tag => tag.trim()).filter(Boolean);
+  }
+  
+  // If it's a string, split by comma
+  if (typeof tagsValue === 'string') {
+    return tagsValue
+      .split(',')
+      .map(tag => tag.trim())
+      .filter(tag => tag.length > 0);
+  }
+  
+  return [];
+}
+
+/**
  * Extract frontmatter and content from markdown text
+ * Supports Obsidian-style properties: tags, summary (both optional)
  */
 function parseFrontmatter(markdown) {
   const frontmatterRegex = /^---\s*\n([\s\S]*?)\n?---\s*\n([\s\S]*)/;
@@ -64,6 +88,14 @@ function parseFrontmatter(markdown) {
         frontmatter[key] = value;
       }
     }
+    
+    // Parse tags if present (supports Obsidian-style: tags: tag1, tag2, tag3)
+    if (frontmatter.tags) {
+      frontmatter.tags = parseTags(frontmatter.tags);
+    }
+    
+    // summary is kept as-is (optional property)
+    // No special processing needed for summary
     
     return {
       frontmatter,
@@ -123,7 +155,9 @@ async function loadPosts() {
           filename,
           title: parsed.frontmatter.title || filename.replace('.md', ''),
           date: parsed.frontmatter.date || new Date().toISOString().split('T')[0],
-          excerpt: parsed.frontmatter.excerpt || stripMarkdownSyntax(markdown).substring(0, 100) + '...',
+          excerpt: parsed.frontmatter.summary || parsed.frontmatter.excerpt || stripMarkdownSyntax(parsed.content).substring(0, 100) + '...',
+          summary: parsed.frontmatter.summary || '',
+          tags: parsed.frontmatter.tags || [],
           content: marked.parse(parsed.content)
         };
         
@@ -171,7 +205,9 @@ async function getPost(filename) {
         filename,
         title: parsed.frontmatter.title || filename.replace('.md', ''),
         date: parsed.frontmatter.date || new Date().toISOString().split('T')[0],
-        excerpt: parsed.frontmatter.excerpt || stripMarkdownSyntax(markdown).substring(0, 100) + '...',
+        excerpt: parsed.frontmatter.summary || parsed.frontmatter.excerpt || stripMarkdownSyntax(parsed.content).substring(0, 100) + '...',
+        summary: parsed.frontmatter.summary || '',
+        tags: parsed.frontmatter.tags || [],
         content: marked.parse(parsed.content)
       };
       
