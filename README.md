@@ -21,33 +21,33 @@ npm run preview
 ## Project Structure
 
 ```
-├── index.html              # Entry HTML file
-├── package.json            # Project dependencies and scripts
-├── vite.config.js          # Vite configuration
-├── posts/                  # Blog posts (Markdown files)
+├── index.html               # Entry HTML file
+├── package.json             # Project dependencies and scripts
+├── vite.config.ts           # Vite configuration
+├── posts/                   # Blog posts (Markdown files)
 └── src/
-    ├── main.js             # Application entry point
-    ├── App.vue             # Root component
+    ├── main.tsx             # Application entry point
+    ├── App.tsx              # Root component
     ├── router/
-    │   └── index.js        # Vue Router configuration
-    ├── composables/
-    │   └── usePosts.js     # Posts loading logic
+    │   └── index.ts        # React Router configuration
+    ├── contexts/
+    │   └── PostsContext.ts # Posts loading logic
     ├── components/
-    │   ├── Header.vue      # Navigation header
-    │   └── Footer.vue      # Page footer
-    ├── views/
-    │   ├── Home.vue        # Home page with recent blogs
-    │   ├── Blog.vue        # Blog listing page
-    │   ├── Post.vue        # Individual blog post page
-    │   └── About.vue       # About page
+    │   ├── Header.tsx      # Navigation header
+    │   └── Footer.tsx      # Page footer
+    ├── pages/
+    │   ├── Home.tsx        # Home page with recent blogs
+    │   ├── Blog.tsx        # Blog listing page
+    │   ├── Post.tsx        # Individual blog post page
+    │   └── About.tsx       # About page
     └── styles/
-        └── simple.css      # Global styles
+        └── simple.css       # Global styles
 ```
 
 ## Features
 
-- **Vue 3** - Progressive JavaScript framework
-- **Vue Router** - Client-side routing
+- **React 18** - JavaScript UI library
+- **React Router** - Client-side routing
 - **Vite** - Fast development server and build tool
 - **Marked** - Markdown parser for blog posts
 - **Responsive Design** - Mobile-friendly layout
