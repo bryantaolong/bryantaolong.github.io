@@ -28,8 +28,6 @@ npm run preview
 └── src/
     ├── main.tsx             # Application entry point
     ├── App.tsx              # Root component
-    ├── router/
-    │   └── index.ts        # React Router configuration
     ├── contexts/
     │   └── PostsContext.ts # Posts loading logic
     ├── components/
