@@ -20,26 +20,26 @@ npm run preview
 
 ## Project Structure
 
-```
-├── index.html               # Entry HTML file
-├── package.json             # Project dependencies and scripts
-├── vite.config.ts           # Vite configuration
-├── posts/                   # Blog posts (Markdown files)
+```plaintext
+├── index.html                # Entry HTML file
+├── package.json              # Project dependencies and scripts
+├── vite.config.ts            # Vite configuration
+├── posts/                    # Blog posts (Markdown files)
 └── src/
-    ├── main.tsx             # Application entry point
-    ├── App.tsx              # Root component
+    ├── main.tsx              # Application entry point
+    ├── App.tsx               # Root component
     ├── contexts/
-    │   └── PostsContext.ts # Posts loading logic
+    │   └── PostsContext.tsx # Posts loading logic
     ├── components/
-    │   ├── Header.tsx      # Navigation header
-    │   └── Footer.tsx      # Page footer
+    │   ├── Header.tsx       # Navigation header
+    │   └── Footer.tsx       # Page footer
     ├── pages/
-    │   ├── Home.tsx        # Home page with recent blogs
-    │   ├── Blog.tsx        # Blog listing page
-    │   ├── Post.tsx        # Individual blog post page
-    │   └── About.tsx       # About page
+    │   ├── Home.tsx         # Home page with recent blogs
+    │   ├── Blog.tsx         # Blog listing page
+    │   ├── Post.tsx         # Individual blog post page
+    │   └── About.tsx        # About page
     └── styles/
-        └── simple.css       # Global styles
+        └── simple.css        # Global styles
 ```
 
 ## Features
