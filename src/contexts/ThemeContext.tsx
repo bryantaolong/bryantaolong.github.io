@@ -54,15 +54,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [isSystemPreference, updateThemeClass])
 
   const toggleTheme = useCallback(() => {
-    setIsDark(prev => {
-      const newValue = !prev
-      updateThemeClass(newValue)
-      localStorage.setItem('theme', newValue ? 'dark' : 'light')
-      localStorage.setItem('theme-preference', 'manual')
-      setIsSystemPreference(false)
-      return newValue
-    })
-  }, [updateThemeClass])
+    const newValue = !isDark
+    updateThemeClass(newValue)
+    localStorage.setItem('theme', newValue ? 'dark' : 'light')
+    localStorage.setItem('theme-preference', 'manual')
+    setIsDark(newValue)
+    setIsSystemPreference(false)
+  }, [isDark, updateThemeClass])
 
   const followSystemTheme = useCallback(() => {
     setIsSystemPreference(true)

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react'
 import { marked } from 'marked'
 
 export interface Post {
@@ -64,12 +64,40 @@ function parseFrontmatter(markdown: string): ParsedMarkdown {
     const content = match[2] || '';
     const frontmatter: Frontmatter = {};
     const lines = frontmatterText.split('\n');
+    let currentKey: string | null = null;
+
     for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+
+      const indent = line.length - line.trimStart().length;
+      if (indent > 0 && currentKey) {
+        const existing = frontmatter[currentKey];
+        if (Array.isArray(existing)) {
+          const item = trimmed.replace(/^[-*+]\s+/, '').trim();
+          if (item) existing.push(item);
+        } else if (typeof existing === 'string') {
+          frontmatter[currentKey] = existing + '\n' + trimmed;
+        }
+        continue;
+      }
+
       const colonIndex = line.indexOf(':');
       if (colonIndex > 0) {
         const key = line.substring(0, colonIndex).trim();
-        const value = line.substring(colonIndex + 1).trim().replace(/^['"]|['"]$/g, '');
-        frontmatter[key] = value;
+        let value = line.substring(colonIndex + 1).trim();
+
+        if (trimmed.startsWith('- ') || trimmed.startsWith('-')) {
+          const item = trimmed.replace(/^[-*+]\s+/, '').trim();
+          frontmatter[key] = item ? [item] : [];
+          currentKey = key;
+        } else if (value) {
+          frontmatter[key] = value;
+          currentKey = key;
+        } else {
+          frontmatter[key] = '';
+          currentKey = key;
+        }
       }
     }
     if (frontmatter.tags) {
@@ -96,6 +124,8 @@ const PostsContext = createContext<PostsContextType | null>(null)
 
 export function PostsProvider({ children }: { children: ReactNode }) {
   const [posts, setPosts] = useState<Post[]>([])
+  const postsRef = useRef(posts)
+  postsRef.current = posts
 
   const loadPosts = useCallback(async () => {
     try {
@@ -133,7 +163,7 @@ export function PostsProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const getPost = useCallback(async (filename: string): Promise<Post | null> => {
-    const cachedPost = posts.find(post => post.filename === filename);
+    const cachedPost = postsRef.current.find(post => post.filename === filename);
     if (cachedPost) return cachedPost;
 
     const path = `../../posts/${filename}`;
@@ -162,7 +192,7 @@ export function PostsProvider({ children }: { children: ReactNode }) {
     }
 
     return null;
-  }, [posts])
+  }, [])
 
   return (
     <PostsContext.Provider value={{ posts, loadPosts, getPost }}>
