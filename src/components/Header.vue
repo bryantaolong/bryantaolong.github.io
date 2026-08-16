@@ -2,12 +2,12 @@
   <header class="header">
     <nav class="main-nav">
       <div class="nav-brand">
-        <a-link href="/">Bryan Tao Long</a-link>
+        <router-link to="/">Bryan Tao Long</router-link>
       </div>
       <div class="nav-links">
-        <a-link href="/" :class="{ active: route.path === '/' }">Home</a-link>
-        <a-link href="/about" :class="{ active: route.path === '/about' }">About</a-link>
-        <a-link href="/blog" :class="{ active: route.path === '/blog' }">Blog</a-link>
+        <router-link to="/" :class="{ active: route.path === '/' }">Home</router-link>
+        <router-link to="/about" :class="{ active: route.path === '/about' }">About</router-link>
+        <router-link to="/blog" :class="{ active: route.path === '/blog' }">Blog</router-link>
       </div>
       <div class="social-icons">
         <ThemeToggle />
